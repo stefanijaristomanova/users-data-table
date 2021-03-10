@@ -19,7 +19,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "USERS")
+@Table(name = "USERS", uniqueConstraints={
+        @UniqueConstraint( name = "email",  columnNames ={"email"})
+})
 @SQLDelete(sql = "UPDATE USERS " + "SET DELETED = 1 " + "WHERE id = ?")
 @Where(clause = "DELETED = 0")
 public class UserEntity implements Serializable {
@@ -43,7 +45,7 @@ public class UserEntity implements Serializable {
     @Column(name = "LASTNAME")
     private String lastname;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique = true, nullable = false)
     private String email;
 
 }
